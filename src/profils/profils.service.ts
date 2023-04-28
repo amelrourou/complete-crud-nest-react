@@ -1,9 +1,9 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ProfilDto } from 'src/dto/Profils.dto';
-import { Profil, ProfilDocument } from 'src/models/Profils.models';
-import { faker } from '@faker-js/faker';
+
+import { Profil, ProfilDocument } from './models/profils.models';
+import { ProfilDto } from './dto/profils.dto';
 
 @Injectable()
 export class ProfilsService {
@@ -45,26 +45,4 @@ export class ProfilsService {
       : {};
     return this.ProfilModel.find(keyword);
   }
-
-  /* Faker() {
-    for (let index = 0; index < 30; index++) {
-      const fakeProfil = {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        categorie: faker.random.words(),
-        competences: faker.random.words(),
-        pays: faker.address.cityName(),
-        avatar: faker.random.words(),
-        portfolio: faker.random.words(),
-        pricebyhour: 23,
-        description: faker.random.words(),
-        phone: 233442244,
-        dateNaissance: faker.date.birthdate(),
-        NumCompte: 2332,
-        adresse: faker.address.city(),
-      };
-      this.ProfilModel.create(fakeProfil);
-    }
-    return 'success';
-  }*/
 }

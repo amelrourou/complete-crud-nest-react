@@ -24,7 +24,7 @@ const Row = ({
   return (
     <Tr>
       <Td>
-        <Avatar name={firstName} />
+        <Avatar name={`${firstName} ${lastName}`} />
       </Td>
       <Td>{firstName}</Td>
       <Td>{lastName}</Td>

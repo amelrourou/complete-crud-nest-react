@@ -9,15 +9,15 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { ProfilsService } from './Profils.service';
-import { ProfilDto } from './dto/profils.dto';
+import { ClientProfilsService } from './ClientProfils.service';
+import { ClientProfilDto } from './dto/ClientPofils.dto';
 
-@Controller('profils')
-export class ProfilsController {
-  constructor(private readonly service: ProfilsService) {}
+@Controller('Clientprofils')
+export class ClientProfilsController {
+  constructor(private readonly service: ClientProfilsService) {}
 
   @Post()
-  Add(@Body() body: ProfilDto) {
+  Add(@Body() body: ClientProfilDto) {
     return this.service.Add(body);
   }
 
@@ -32,7 +32,7 @@ export class ProfilsController {
   }
 
   @Put('/:id')
-  Update(@Param('id') id: string, @Body() body: ProfilDto) {
+  Update(@Param('id') id: string, @Body() body: ClientProfilDto) {
     return this.service.Update(id, body);
   }
 

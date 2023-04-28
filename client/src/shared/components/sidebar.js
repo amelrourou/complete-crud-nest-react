@@ -38,7 +38,7 @@ const Sidebar = () => {
     setDuration(event.target.value);
   };
 
-  const categories = ['Category 1', 'Category 2', 'Category 3'];
+  const categorie = ['Category 1', 'Category 2', 'Category 3'];
 
   return (
     <Box p={4}>
@@ -46,11 +46,11 @@ const Sidebar = () => {
       <Divider my={4} />
       <h2 onMouseEnter={handleCategoriesMouseEnter}>Categories</h2>
       <List
-        aria-label="categories list"
+        aria-label="categorie list"
         display={hoveringCategories ? 'block' : 'none'}
         onMouseLeave={handleCategoriesMouseLeave}
       >
-        {categories.map((category) => (
+        {categorie.map((category) => (
           <ListItem key={category} py={1} px={2}>
             <Text>{category}</Text>
           </ListItem>
@@ -227,9 +227,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-const Sidebar = ({ isOpen, onClose, categories, skills, onFilter }) => {
+const Sidebar = ({ isOpen, onClose, categorie, skills, onFilter }) => {
   const [filterOptions, setFilterOptions] = React.useState({
-    categories: [],
+    categorie: [],
     skills: [],
     priceByHour: '',
   });
@@ -257,7 +257,7 @@ const Sidebar = ({ isOpen, onClose, categories, skills, onFilter }) => {
 
   const handleClearFilter = () => {
     setFilterOptions({
-      categories: [],
+      categorie: [],
       skills: [],
       priceByHour: '',
     });
@@ -292,13 +292,13 @@ const Sidebar = ({ isOpen, onClose, categories, skills, onFilter }) => {
             <Text fontWeight="bold">Categories:</Text>
             <CheckboxGroup colorScheme="teal">
               <Stack spacing={2}>
-                {categories.map((category) => (
+                {categorie.map((category) => (
                   <Checkbox
                     key={category}
                     value={category}
-                    isChecked={filterOptions.categories.includes(category)}
+                    isChecked={filterOptions.categorie.includes(category)}
                     onChange={(e) =>
-                      handleCheckboxChange('categories', e.target.value)
+                      handleCheckboxChange('categorie', e.target.value)
                     }
                   >
                     {category}
@@ -352,7 +352,7 @@ const Sidebar = ({ isOpen, onClose, categories, skills, onFilter }) => {
 
 export default Sidebar;
 */
-
+/*
 import React, { useContext, useState } from 'react';
 import {
   Box,
@@ -367,7 +367,7 @@ import {
 import { GlobalContext } from '../../context/GlobalWrapper';
 
 const Sidebar = () => {
-  const { categories, skills, priceRanges, FilterProfils } =
+  const { categorie, skills, priceRanges, FilterProfils } =
     useContext(GlobalContext);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -393,7 +393,7 @@ const Sidebar = () => {
       <FormControl>
         <FormLabel>Categories</FormLabel>
         <CheckboxGroup colorScheme="purple" onChange={handleCategoryChange}>
-          {categories.map((category) => (
+          {categorie.map((category) => (
             <Checkbox key={category} value={category}>
               {category}
             </Checkbox>
@@ -430,3 +430,137 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+
+import React, { useState } from "react";
+import {
+  Box,
+  Checkbox,
+  Divider,
+  FormControl,
+  FormLabel,
+  Input,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+  Stack,
+} from "@chakra-ui/react";
+
+const Sidebar = ({ categories, competencies, minPrice, maxPrice, onFilter }) => {
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCompetencies, setSelectedCompetencies] = useState([]);
+  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+
+  const handleCategoryChange = (category) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(selectedCategories.filter((c) => c !== category));
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
+  const handleCompetencyChange = (competency) => {
+    if (selectedCompetencies.includes(competency)) {
+      setSelectedCompetencies(
+        selectedCompetencies.filter((c) => c !== competency)
+      );
+    } else {
+      setSelectedCompetencies([...selectedCompetencies, competency]);
+    }
+  };
+
+  const handlePriceRangeChange = (value) => {
+    setPriceRange(value);
+  };
+
+  const handleFilter = () => {
+    onFilter({
+      categories: selectedCategories,
+      competencies: selectedCompetencies,
+      priceRange,
+    });
+  };
+
+  return (
+    <Box borderWidth="1px" borderRadius="md" p={4}>
+      <Stack spacing={4}>
+        <FormControl>
+          <FormLabel>Categories</FormLabel>
+          {categories.map((category) => (
+            <Checkbox
+              key={category}
+              isChecked={selectedCategories.includes(category)}
+              onChange={() => handleCategoryChange(category)}
+            >
+              {category}
+            </Checkbox>
+          ))}
+        </FormControl>
+        <Divider />
+        <FormControl>
+          <FormLabel>Competencies</FormLabel>
+          {competencies.map((competency) => (
+            <Checkbox
+              key={competency}
+              isChecked={selectedCompetencies.includes(competency)}
+              onChange={() => handleCompetencyChange(competency)}
+            >
+              {competency}
+            </Checkbox>
+          ))}
+        </FormControl>
+        <Divider />
+        <FormControl>
+          <FormLabel>Price per hour</FormLabel>
+          <Slider
+            min={minPrice}
+            max={maxPrice}
+            step={5}
+            value={priceRange}
+            onChange={handlePriceRangeChange}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          <Stack direction="row" justifyContent="space-between">
+            <Input
+              type="number"
+              value={priceRange[0]}
+              onChange={(e) =>
+                handlePriceRangeChange([parseInt(e.target.value), priceRange[1]])
+              }
+            />
+            <Input
+              type="number"
+              value={priceRange[1]}
+              onChange={(e) =>
+                handlePriceRangeChange([priceRange[0], parseInt(e.target.value)])
+              }
+            />
+          </Stack>
+        </FormControl>
+        <Divider />
+        <Box textAlign="right">
+          <button onClick={handleFilter}>Filter</button>
+        </Box>
+      </Stack>
+    </Box>
+  );
+};
+
+export default Sidebar;
+
+
+*/
+
+import React from 'react';
+
+const sidebar = () => {
+  return <div></div>;
+};
+
+export default sidebar;

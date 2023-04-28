@@ -9,6 +9,8 @@ import Profils from './components/profils';
 import ListProfils from './components/listprofils';
 import Home from './pages/Home.page';
 import MyProfil from './components/myprofile';
+import CreateProfilEmployeurPage from './pages/CreateProfilEmployeur.page';
+import CreateProfilFreelancerPage from './pages/CreateProfilFreelancer.page';
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
           <Route path="/profils" element={<Profils />} />
           <Route path="/profils/:id" element={<Profil />} />
           <Route path="/myprofil/:id" element={<MyProfil />} />
+          <Route path="/addemployeur" element={<CreateProfilEmployeurPage />} />
+          <Route
+            path="/addfreelancerprofil"
+            element={<CreateProfilFreelancerPage />}
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

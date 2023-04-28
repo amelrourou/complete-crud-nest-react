@@ -49,7 +49,6 @@ const ListProfils = () => {
       <div className="sidebar">
         <Sidebar />
       </div>
-
       <div className="content">
         <Container maxW={'full'} p="4" fontSize={'18px'}>
           <Box rounded="lg" boxShadow="base" p="4">
