@@ -3,17 +3,44 @@ import React, { useContext } from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
 import { GlobalContext } from '../context/GlobalWrapper';
 
-const Row = ({ id, fullname, email, age, country }) => {
+const Row = ({
+  id,
+  firstName,
+  lastName,
+  categorie,
+  competences,
+  CIN,
+  pays,
+  avatar,
+  portfolio,
+  pricebyhour,
+  description,
+  phone,
+  dateNaissance,
+  adresse,
+  NumCompte,
+}) => {
   const { Delete, onOpen, FindOne } = useContext(GlobalContext);
   return (
     <Tr>
       <Td>
-        <Avatar name={fullname} />
+        <Avatar name={firstName} />
       </Td>
-      <Td>{fullname}</Td>
-      <Td>{email}</Td>
-      <Td>{age}</Td>
-      <Td>{country}</Td>
+      <Td>{firstName}</Td>
+      <Td>{lastName}</Td>
+      <Td>{categorie}</Td>
+      <Td>{competences}</Td>
+      <Td>{CIN}</Td>
+      <Td>{pays}</Td>
+      <Td>{avatar}</Td>
+      <Td>{portfolio}</Td>
+      <Td>{pricebyhour}</Td>
+      <Td>{description}</Td>
+      <Td>{phone}</Td>
+      <Td>{dateNaissance}</Td>
+      <Td>{adresse}</Td>
+      <Td>{NumCompte}</Td>
+
       <Td>
         <Box display="flex" gap="1">
           <Button colorScheme={'blue'}>

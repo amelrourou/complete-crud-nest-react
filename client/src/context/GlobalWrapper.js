@@ -4,16 +4,17 @@ import { useDisclosure, useToast } from '@chakra-ui/react';
 export const GlobalContext = createContext();
 
 export default function Wrapper({ children }) {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+  const [Profils, setProfils] = useState([]);
+  const [Profil, setProfil] = useState({});
   const [errors, setErrors] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const FetchUsers = () => {
+
+  const FetchProfils = () => {
     axios
-      .get('/api/users')
+      .get('/api/profils')
       .then((res) => {
-        setUsers(res.data);
+        setProfils(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -22,9 +23,9 @@ export default function Wrapper({ children }) {
 
   const Search = (query) => {
     axios
-      .post(`/api/users/search?key=${query}`)
+      .post(`/api/Profils/search?key=${query}`)
       .then((res) => {
-        setUsers(res.data);
+        setProfils(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -33,11 +34,11 @@ export default function Wrapper({ children }) {
 
   const Delete = (id) => {
     axios
-      .delete(`/api/users/${id}`)
+      .delete(`/api/profils/${id}`)
       .then((res) => {
-        setUsers(users.filter((u) => u._id != id));
+        setProfils(Profils.filter((u) => u._id !== id));
         toast({
-          title: 'User Deleted',
+          title: 'Profil Deleted',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -50,11 +51,11 @@ export default function Wrapper({ children }) {
 
   const Add = (form, setForm) => {
     axios
-      .post('/api/users', form)
+      .post('/api/profils', form)
       .then((res) => {
-        setUsers([...users, res.data]);
+        setProfils([...Profils, res.data]);
         toast({
-          title: 'User Added',
+          title: 'Profil Added',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -70,9 +71,9 @@ export default function Wrapper({ children }) {
 
   const FindOne = async (id) => {
     await axios
-      .get(`/api/users/${id}`)
+      .get(`/api/profils/${id}`)
       .then((res) => {
-        setUser(res.data);
+        setProfil(res.data);
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -81,10 +82,10 @@ export default function Wrapper({ children }) {
 
   const Update = (form, setForm, id) => {
     axios
-      .put(`/api/users/${id}`, form)
+      .put(`/api/profils/${id}`, form)
       .then((res) => {
         toast({
-          title: 'User Updated',
+          title: 'Profil Updated',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -92,7 +93,7 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        FetchUsers();
+        FetchProfils();
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -101,20 +102,20 @@ export default function Wrapper({ children }) {
   return (
     <GlobalContext.Provider
       value={{
-        FetchUsers,
+        FetchProfils,
         Search,
         Delete,
         Add,
         FindOne,
         Update,
-        users,
+        Profils,
         onOpen,
         isOpen,
         onClose,
         errors,
         setErrors,
-        user,
-        setUser,
+        Profil,
+        setProfil,
       }}
     >
       {children}
