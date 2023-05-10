@@ -4,16 +4,43 @@ import { useDisclosure, useToast } from '@chakra-ui/react';
 export const GlobalContext = createContext();
 
 export default function Wrapper({ children }) {
-  const [users, setUsers] = useState([]);
-  const [user, setUser] = useState({});
+  const [Profils, setProfils] = useState([]);
+  const [Profil, setProfil] = useState({});
   const [errors, setErrors] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const FetchUsers = () => {
+  const [FreelancerProfils, setFreelancerProfils] = useState([]);
+  const [FreelancerProfil, setFreelancerProfil] = useState({});
+  const [ClientProfils, setClientProfils] = useState([]);
+  const [ClientProfil, setClientProfil] = useState({});
+
+  const FetchProfils = () => {
     axios
-      .get('/api/users')
+      .get('/api/profils')
       .then((res) => {
-        setUsers(res.data);
+        setProfils(res.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const FetchFreelancerProfils = () => {
+    axios
+      .get('/api/Freelancerprofils')
+      .then((res) => {
+        setFreelancerProfils(res.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const FetchClientProfils = () => {
+    axios
+      .get('/api/Clientprofils')
+      .then((res) => {
+        setClientProfils(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -22,9 +49,31 @@ export default function Wrapper({ children }) {
 
   const Search = (query) => {
     axios
-      .post(`/api/users/search?key=${query}`)
+      .post(`/api/Profils/search?key=${query}`)
       .then((res) => {
-        setUsers(res.data);
+        setProfils(res.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const SearchFreelancer = (query) => {
+    axios
+      .post(`/api/FreelancerProfils/search?key=${query}`)
+      .then((res) => {
+        setFreelancerProfils(res.data);
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const SearchClient = (query) => {
+    axios
+      .post(`/api/ClientProfils/search?key=${query}`)
+      .then((res) => {
+        setClientProfils(res.data);
       })
       .catch((err) => {
         console.log(err.reponse.data);
@@ -33,11 +82,45 @@ export default function Wrapper({ children }) {
 
   const Delete = (id) => {
     axios
-      .delete(`/api/users/${id}`)
+      .delete(`/api/profils/${id}`)
       .then((res) => {
-        setUsers(users.filter((u) => u._id != id));
+        setProfils(Profils.filter((u) => u._id !== id));
         toast({
-          title: 'User Deleted',
+          title: 'Profil Deleted',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const DeleteFreelancer = (id) => {
+    axios
+      .delete(`/api/Freelancerprofils/${id}`)
+      .then((res) => {
+        setFreelancerProfils(FreelancerProfils.filter((u) => u._id !== id));
+        toast({
+          title: 'FreelancerProfil Deleted',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err.reponse.data);
+      });
+  };
+
+  const DeleteClient = (id) => {
+    axios
+      .delete(`/api/Clientprofils/${id}`)
+      .then((res) => {
+        setClientProfils(ClientProfils.filter((u) => u._id !== id));
+        toast({
+          title: 'ClientProfil Deleted',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -50,11 +133,51 @@ export default function Wrapper({ children }) {
 
   const Add = (form, setForm) => {
     axios
-      .post('/api/users', form)
+      .post('/api/profils', form)
       .then((res) => {
-        setUsers([...users, res.data]);
+        setProfils([...Profils, res.data]);
         toast({
-          title: 'User Added',
+          title: 'Profil Added',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+        setErrors({});
+        setForm({});
+        onClose();
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
+  const AddFreelancerProfil = (form, setForm) => {
+    axios
+      .post('/api/Freelancerprofils', form)
+      .then((res) => {
+        setFreelancerProfils([...FreelancerProfils, res.data]);
+        toast({
+          title: 'FreelancerProfil Added',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+        setErrors({});
+        setForm({});
+        onClose();
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
+  const AddClientProfil = (form, setForm) => {
+    axios
+      .post('/api/Clientprofils', form)
+      .then((res) => {
+        setClientProfils([...ClientProfils, res.data]);
+        toast({
+          title: 'ClientProfil Added',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -70,9 +193,31 @@ export default function Wrapper({ children }) {
 
   const FindOne = async (id) => {
     await axios
-      .get(`/api/users/${id}`)
+      .get(`/api/profils/${id}`)
       .then((res) => {
-        setUser(res.data);
+        setProfil(res.data);
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
+  const FindFreelancer = async (id) => {
+    await axios
+      .get(`/api/Freelancerprofils/${id}`)
+      .then((res) => {
+        setFreelancerProfil(res.data);
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
+  const FindClient = async (id) => {
+    await axios
+      .get(`/api/Clientprofils/${id}`)
+      .then((res) => {
+        setClientProfil(res.data);
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -81,10 +226,10 @@ export default function Wrapper({ children }) {
 
   const Update = (form, setForm, id) => {
     axios
-      .put(`/api/users/${id}`, form)
+      .put(`/api/profils/${id}`, form)
       .then((res) => {
         toast({
-          title: 'User Updated',
+          title: 'Profil Updated',
           status: 'success',
           duration: 4000,
           isClosable: true,
@@ -92,29 +237,86 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        FetchUsers();
+        FetchProfils();
       })
       .catch((err) => {
         setErrors(err.response.data.error);
       });
   };
+
+  const UpdateFreelancer = (form, setForm, id) => {
+    axios
+      .put(`/api/Freelancerprofils/${id}`, form)
+      .then((res) => {
+        toast({
+          title: 'FreelancerProfil Updated',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+        setErrors({});
+        setForm({});
+        onClose();
+        FetchFreelancerProfils();
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
+  const UpdateClient = (form, setForm, id) => {
+    axios
+      .put(`/api/Clientprofils/${id}`, form)
+      .then((res) => {
+        toast({
+          title: 'ClientProfil Updated',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        });
+        setErrors({});
+        setForm({});
+        onClose();
+        FetchClientProfils();
+      })
+      .catch((err) => {
+        setErrors(err.response.data.error);
+      });
+  };
+
   return (
     <GlobalContext.Provider
       value={{
-        FetchUsers,
+        FetchProfils,
         Search,
         Delete,
         Add,
         FindOne,
         Update,
-        users,
+        Profils,
         onOpen,
         isOpen,
         onClose,
         errors,
         setErrors,
-        user,
-        setUser,
+        Profil,
+        setProfil,
+        UpdateFreelancer,
+        SearchFreelancer,
+        AddFreelancerProfil,
+        FetchFreelancerProfils,
+        FreelancerProfil,
+        FreelancerProfils,
+        FindFreelancer,
+        DeleteFreelancer,
+        FetchClientProfils,
+        ClientProfil,
+        ClientProfils,
+        FindClient,
+        DeleteClient,
+        UpdateClient,
+        AddClientProfil,
+        SearchClient,
       }}
     >
       {children}

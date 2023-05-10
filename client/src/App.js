@@ -1,104 +1,76 @@
 import {
-  Box,
-  Button,
-  Container,
-  Input,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react';
-import { FormControl } from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from './context/GlobalWrapper';
-import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import Row from './components/Row';
-import DrawerExample from './components/DrawerExample';
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import Home from './pages/Home.page';
+
+import Profil from './components/profils/profil';
+import Profils from './components/profils/profils';
+import ListProfils from './components/profils/listprofils';
+import MyProfil from './components/profils/myprofile';
+
+import CreateProfilPage from './pages/CreateProfil';
+
+import CreateProfilFreelancerPage from './pages/CreateProfilFreelancer.page';
+import FreelancerProfils from './components/Freelancerprofils/FreelancerProfils';
+import ListFreelancerProfils from './components/Freelancerprofils/listFreelancerprofils';
+import MyFreelancerProfil from './components/Freelancerprofils/myFreelancerprofile';
+import FreelancerProfil from './components/Freelancerprofils/Freelancerprofil';
+import CreateProfilClientPage from './pages/CreateProfilClient.page';
+import ClientProfils from './components/Clientprofils/ClientProfils';
+import ListClientProfils from './components/Clientprofils/listClientprofils';
+
+import MyClientProfil from './components/Clientprofils/myClientprofile';
+import ClientProfil from './components/Clientprofils/Clientprofil';
+import RegisterPage from './pages/Register.page';
+import SigninPage from './pages/Signin.page';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {
-  const { FetchUsers, Search, users, onOpen, isOpen, onClose } =
-    useContext(GlobalContext);
-  const [query, setQuery] = useState('');
-  useEffect(() => {
-    FetchUsers();
-  }, []);
-  const SearchHandler = () => {
-    Search(query);
-  };
-  const onchangeHandler = (e) => {
-    setQuery(e.target.value);
-  };
   return (
-    <div className="App">
-      <Container maxW={'full'} p="4" fontSize={'18px'}>
-        <Box rounded="lg" boxShadow="base" p="4">
-          <Box mt="2" gap={'2'} mb="4" display={'flex'}>
-            <FormControl>
-              <Input type="text" onChange={onchangeHandler} />
-            </FormControl>
-            <Button
-              leftIcon={<AiOutlineSearch />}
-              colorScheme="teal"
-              variant="outline"
-              maxW="300px"
-              minW="150px"
-              onClick={() => SearchHandler()}
-            >
-              Search
-            </Button>
-          </Box>
-        </Box>
-        <Box mt="5" rounded={'lg'} boxShadow="base">
-          <Box p="4" display={'flex'} justifyContent="space-between">
-            <Text fontSize="xl" fontWeight="bold">
-              List Users
-            </Text>
-            <Button
-              colorScheme="teal"
-              variant="outline"
-              maxW={'300px'}
-              minW="150px"
-              leftIcon={<AiOutlinePlus fontSize={'20px'} />}
-              onClick={onOpen}
-            >
-              Add User
-            </Button>
-          </Box>
-          <TableContainer>
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Avatar</Th>
-                  <Th>Fullname</Th>
-                  <Th>Email</Th>
-                  <Th>Age</Th>
-                  <Th>Country</Th>
-                  <Th>Actions</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {users?.map(({ _id, fullname, email, age, country }) => {
-                  return (
-                    <Row
-                      id={_id}
-                      fullname={fullname}
-                      email={email}
-                      age={age}
-                      country={country}
-                    />
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-        <DrawerExample />
-      </Container>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/signin" element={<SigninPage />} />
+          <Route path="/" element={<PrivateRoute page={<Home />} />} />
+
+          <Route path="/listprofils" element={<ListProfils />} />
+          <Route path="/profils" element={<Profils />} />
+          <Route path="/profils/:id" element={<Profil />} />
+          <Route path="/myprofil/:id" element={<MyProfil />} />
+
+          <Route path="/addprofil" element={<CreateProfilPage />} />
+
+          <Route path="/FreelancerProfils" element={<FreelancerProfils />} />
+          <Route
+            path="/listFreelancerprofils"
+            element={<ListFreelancerProfils />}
+          />
+
+          <Route
+            path="/addfreelancerprofil"
+            element={<CreateProfilFreelancerPage />}
+          />
+          <Route path="/Freelancerprofils/:id" element={<FreelancerProfil />} />
+          <Route
+            path="/myFreelancerprofil/:id"
+            element={<MyFreelancerProfil />}
+          />
+
+          <Route path="/addClientprofil" element={<CreateProfilClientPage />} />
+          <Route path="/ClientProfils" element={<ClientProfils />} />
+          <Route path="/listClientprofils" element={<ListClientProfils />} />
+
+          <Route path="/Clientprofils/:id" element={<ClientProfil />} />
+          <Route path="/myClientprofil/:id" element={<MyClientProfil />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
