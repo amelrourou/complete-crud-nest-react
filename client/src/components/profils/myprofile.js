@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import {
@@ -13,15 +13,25 @@ import {
   Divider,
   Flex,
   Avatar,
+  Spacer,
 } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
 
-import { AiFillStar, AiOutlinePhone } from 'react-icons/ai';
+import {
+  AiFillDelete,
+  AiFillEdit,
+  AiFillStar,
+  AiOutlinePhone,
+} from 'react-icons/ai';
 import { FaRegEnvelope } from 'react-icons/fa';
+import { GlobalContext } from '../../context/GlobalWrapper';
+import DrawerExample from './DrawerExample';
 
-const Profil = () => {
+const MyProfil = () => {
   const [profil, setProfil] = useState({});
   const { id } = useParams();
+
+  const { onOpen, Delete, Update, FindOne } = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchProfil = async () => {
@@ -63,9 +73,23 @@ const Profil = () => {
               <Badge variantColor="green"> {profil.competences}</Badge>
             </Stack>
           </Box>
+
+          <Spacer />
+          <Box display="flex" gap="1">
+            <Button colorScheme={'blue'}>
+              <AiFillEdit
+                onClick={() => {
+                  onOpen();
+                  FindOne(id);
+                }}
+              />
+            </Button>
+            <Button colorScheme={'red'} onClick={() => Delete(id)}>
+              <AiFillDelete />
+            </Button>
+          </Box>
         </Flex>
       </Box>
-
       <Card
         direction={{ base: 'column', sm: 'row' }}
         overflow="hidden"
@@ -88,10 +112,11 @@ const Profil = () => {
           </CardFooter>
         </Stack>
       </Card>
+      <DrawerExample />
     </>
   );
 };
-export default Profil;
+export default MyProfil;
 
 /*<Box bg="gray.50" px={4} py={6}>
 <Flex alignItems="center" justifyContent="space-between">

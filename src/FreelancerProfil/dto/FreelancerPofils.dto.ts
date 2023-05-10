@@ -1,4 +1,19 @@
-import { IsNotEmpty, IsOptional } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+export enum Category {
+  WEB = 'web',
+  DESIGN = 'design',
+  MARKETING = 'marketing',
+  CUSTOMERSUPP = 'customer support',
+  TRANSLATION = 'translation',
+  EDITING = 'editing',
+}
+
+export enum status {
+  ENLIGNE = 'enligne',
+  INVISIBLE = 'invisible',
+  INACTIFS = 'inactifs',
+  NPD = 'ne pas deranger',
+}
 
 export class FreelancerProfilDto {
   @IsNotEmpty()
@@ -6,7 +21,8 @@ export class FreelancerProfilDto {
   @IsNotEmpty()
   lastName: string;
   @IsNotEmpty()
-  categorie: string;
+  @IsEnum(Category, { each: true })
+  categorie: Category[];
   @IsOptional()
   skills: string;
   @IsOptional()
@@ -14,7 +30,7 @@ export class FreelancerProfilDto {
   @IsOptional()
   picture: string;
   @IsOptional()
-  portfolio: string;
+  CV: string;
   @IsOptional()
   pays: string;
   @IsOptional()
@@ -29,4 +45,9 @@ export class FreelancerProfilDto {
   Birthdate: Date;
   @IsOptional()
   priceperhour: number;
+  @IsOptional()
+  Avis: string;
+  @IsOptional()
+  @IsEnum(status, { each: true })
+  status: status[];
 }

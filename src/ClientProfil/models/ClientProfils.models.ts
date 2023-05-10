@@ -3,36 +3,41 @@ import { Document } from 'mongoose';
 
 export type ClientProfilDocument = ClientProfil & Document;
 
+export enum status {
+  ENLIGNE = 'enligne',
+  INVISIBLE = 'invisible',
+  INACTIFS = 'inactifs',
+  NPD = 'ne pas deranger',
+}
+
 @Schema()
 export class ClientProfil {
   @Prop({ required: true })
   firstName: string;
   @Prop({ required: true })
   lastName: string;
-  @Prop({ required: true })
-  categorie: string;
-  @Prop({ required: true })
-  competences: string;
-  @Prop({ required: true })
+  @Prop()
+  company: string;
+  @Prop()
+  Bio: string;
+  @Prop()
+  picture: string;
+  @Prop()
   pays: string;
-  @Prop({ required: true })
-  description: string;
-  @Prop({ required: true })
-  avatar: string;
-  @Prop({ required: true })
-  portfolio: string;
-  @Prop({ required: true })
+  @Prop()
+  address: string;
+  @Prop()
   CIN: number;
-  @Prop({ required: true })
+  @Prop()
+  NumCompt: number;
+  @Prop()
   phone: number;
-  @Prop({ required: true })
-  dateNaissance: Date;
-  @Prop({ required: true })
-  adresse: string;
-  @Prop({ required: true })
-  pricebyhour: number;
-  @Prop({ required: true })
-  NumCompte: number;
+  @Prop()
+  Birthdate: Date;
+  @Prop()
+  Avis: string;
+  @Prop()
+  status: status[];
 }
 
 export const ClientProfilSchema = SchemaFactory.createForClass(ClientProfil);

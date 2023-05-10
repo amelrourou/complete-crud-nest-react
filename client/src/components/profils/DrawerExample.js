@@ -11,8 +11,8 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../context/GlobalWrapper';
-import InputsGroup from './InputsGroup';
+import { GlobalContext } from '../../context/GlobalWrapper';
+import InputsGroup from '../InputsGroup';
 
 export default function DrawerExample() {
   const { onOpen, isOpen, onClose, Add, errors, setErrors, Profil, Update } =

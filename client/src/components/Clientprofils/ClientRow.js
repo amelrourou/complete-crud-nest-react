@@ -1,26 +1,30 @@
 import { Avatar, Box, Button, Td, Tr } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
-import { GlobalContext } from '../context/GlobalWrapper';
+import { GlobalContext } from '../../context/GlobalWrapper';
+
 
 const Row = ({
   id,
   firstName,
   lastName,
-  categorie,
-  competences,
-  CIN,
+
+  company,
+  Bio,
+  picture,
+
   pays,
-  avatar,
-  portfolio,
-  pricebyhour,
-  description,
+  address,
+  CIN,
+  NumCompt,
   phone,
-  dateNaissance,
-  adresse,
-  NumCompte,
+  Birthdate,
+
+  Avis,
+  status,
 }) => {
-  const { Delete, onOpen, FindOne } = useContext(GlobalContext);
+  const { DeleteClient, onOpen, FindClient } =
+    useContext(GlobalContext);
   return (
     <Tr>
       <Td>
@@ -28,30 +32,31 @@ const Row = ({
       </Td>
       <Td>{firstName}</Td>
       <Td>{lastName}</Td>
-      <Td>{categorie}</Td>
-      <Td>{competences}</Td>
-      <Td>{CIN}</Td>
-      <Td>{pays}</Td>
-      <Td>{avatar}</Td>
-      <Td>{portfolio}</Td>
-      <Td>{pricebyhour}</Td>
-      <Td>{description}</Td>
-      <Td>{phone}</Td>
-      <Td>{dateNaissance}</Td>
-      <Td>{adresse}</Td>
-      <Td>{NumCompte}</Td>
 
+      <Td>{company}</Td>
+      <Td>{Bio}</Td>
+      <Td>{picture}</Td>
+
+      <Td>{pays}</Td>
+      <Td>{address}</Td>
+      <Td>{CIN}</Td>
+      <Td>{NumCompt}</Td>
+      <Td>{phone}</Td>
+      <Td>{Birthdate}</Td>
+
+      <Td>{Avis}</Td>
+      <Td>{status}</Td>
       <Td>
         <Box display="flex" gap="1">
           <Button colorScheme={'blue'}>
             <AiFillEdit
               onClick={() => {
                 onOpen();
-                FindOne(id);
+                FindClient(id);
               }}
             />
           </Button>
-          <Button colorScheme={'red'} onClick={() => Delete(id)}>
+          <Button colorScheme={'red'} onClick={() => DeleteClient(id)}>
             <AiFillDelete />
           </Button>
         </Box>

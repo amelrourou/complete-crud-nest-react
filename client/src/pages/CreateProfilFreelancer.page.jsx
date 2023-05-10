@@ -1,4 +1,4 @@
-import FreelancerProfilFormComponent from '../components/FreelancerProfilForm.component';
+import FreelancerProfilFormComponent from '../components/Freelancerprofils/FreelancerProfilForm.component';
 
 const CreateProfilFreelancerPage = () => {
   return <FreelancerProfilFormComponent />;

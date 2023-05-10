@@ -13,20 +13,27 @@ import {
 } from '@chakra-ui/react';
 import { FormControl } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../context/GlobalWrapper';
-import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import Row from '../components/Row';
-import DrawerExample from '../components/DrawerExample';
 
-const Profils = () => {
-  const { FetchProfils, Search, Profils, onOpen, isOpen, onClose } =
-    useContext(GlobalContext);
+import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
+import ClientRow from './ClientRow';
+import ClientDrawerExample from './ClientDrawerExample';
+import { GlobalContext } from '../../context/GlobalWrapper';
+
+const ClientProfils = () => {
+  const {
+    FetchClientProfils,
+    SearchClient,
+    ClientProfils,
+    onOpen,
+    isOpen,
+    onClose,
+  } = useContext(GlobalContext);
   const [query, setQuery] = useState('');
   useEffect(() => {
-    FetchProfils();
+    FetchClientProfils();
   }, []);
   const SearchHandler = () => {
-    Search(query);
+    SearchClient(query);
   };
   const onchangeHandler = (e) => {
     setQuery(e.target.value);
@@ -54,7 +61,7 @@ const Profils = () => {
         <Box mt="5" rounded={'lg'} boxShadow="base">
           <Box p="4" display={'flex'} justifyContent="space-between">
             <Text fontSize="xl" fontWeight="bold">
-              List Profils
+              List FreelanceurProfils
             </Text>
             <Button
               colorScheme="teal"
@@ -64,7 +71,7 @@ const Profils = () => {
               leftIcon={<AiOutlinePlus fontSize={'20px'} />}
               onClick={onOpen}
             >
-              Add Profil
+              Add ClientProfil
             </Button>
           </Box>
           <TableContainer>
@@ -74,57 +81,63 @@ const Profils = () => {
                   <Th>Avatar</Th>
                   <Th>firstName</Th>
                   <Th>lastName</Th>
-                  <Th>categorie</Th>
-                  <Th>competences</Th>
-                  <Th>CIN</Th>
+
+                  <Th>company</Th>
+                  <Th>BIO</Th>
+                  <Th>Picture</Th>
+
                   <Th>pays</Th>
-                  <Th> avatar</Th>
-                  <Th>portfolio</Th>
-                  <Th>pricebyhour</Th>
-                  <Th>description</Th>
+                  <Th>adresse</Th>
+                  <Th>CIN</Th>
+                  <Th>NumCompt</Th>
                   <Th>phone</Th>
                   <Th>dateNaissance</Th>
-                  <Th>adresse</Th>
-                  <Th>NumCompte</Th>
+
+                  <Th>Avis</Th>
+                  <Th>Status</Th>
                   <Th>Actions</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {Profils?.map(
+                {ClientProfils?.map(
                   ({
                     _id,
                     firstName,
                     lastName,
-                    categorie,
-                    competences,
-                    CIN,
+
+                    company,
+                    Bio,
+                    picture,
+
                     pays,
-                    avatar,
-                    portfolio,
-                    pricebyhour,
-                    description,
+                    address,
+                    CIN,
+                    NumCompt,
                     phone,
-                    dateNaissance,
-                    adresse,
-                    NumCompte,
+                    Birthdate,
+
+                    Avis,
+                    status,
                   }) => {
                     return (
-                      <Row
+                      <ClientRow
                         id={_id}
                         firstName={firstName}
                         lastName={lastName}
-                        categorie={categorie}
-                        competences={competences}
-                        CIN={CIN}
+
+                        company={company}
+                        Bio={Bio}
+                        picture={picture}
+
                         pays={pays}
-                        avatar={avatar}
-                        portfolio={portfolio}
-                        pricebyhour={pricebyhour}
-                        description={description}
+                        address={address}
+                        CIN={CIN}
+                        NumCompt={NumCompt}
                         phone={phone}
-                        dateNaissance={dateNaissance}
-                        adresse={adresse}
-                        NumCompte={NumCompte}
+                        Birthdate={Birthdate}
+
+                        Avis={Avis}
+                        status={status}
                       />
                     );
                   },
@@ -133,9 +146,9 @@ const Profils = () => {
             </Table>
           </TableContainer>
         </Box>
-        <DrawerExample />
+        <ClientDrawerExample />
       </Container>
     </>
   );
 };
-export default Profils;
+export default ClientProfils;

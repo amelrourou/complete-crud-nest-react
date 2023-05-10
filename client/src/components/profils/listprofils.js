@@ -14,10 +14,10 @@ import {
 } from '@chakra-ui/react';
 import { FormControl } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../context/GlobalWrapper';
+import { GlobalContext } from '../../context/GlobalWrapper';
 import { AiOutlinePlus, AiOutlineSearch } from 'react-icons/ai';
-import Sidebar from '../shared/components/sidebar';
-import '../App.css';
+import Sidebar from '../../shared/components/sidebar';
+import '../../App.css';
 import { useNavigate } from 'react-router-dom';
 
 const ListProfils = () => {

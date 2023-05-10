@@ -17,4 +17,4 @@ import {
   controllers: [FreelancerProfilsController],
   providers: [FreelancerProfilsService],
 })
-export class ProfilsModule {}
+export class FreelancerProfilsModule {}

@@ -17,4 +17,4 @@ import {
   controllers: [ClientProfilsController],
   providers: [ClientProfilsService],
 })
-export class ProfilsModule {}
+export class ClientProfilsModule {}
