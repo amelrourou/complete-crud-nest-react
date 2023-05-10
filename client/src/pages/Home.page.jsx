@@ -1,9 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Container, Text } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
+
+import { useEffect } from 'react';
+import { logout, selectedUser } from '../components/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../hooks/redux/hooks';
+
 export default function Home() {
+  const dispatch = useAppDispatch();
+
+  const { user, jwt } = useAppSelector(selectedUser);
+
+  useEffect(() => {
+    console.log(123, user, jwt);
+  }, [user]);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <>
+      <div>
+        <h1>Home Page</h1>
+        <Button onClick={logoutHandler}>Logout</Button>
+        {user?.email}
+      </div>
       <Box my={2} textAlign="center">
         <Link to="/listprofils">
           <Button

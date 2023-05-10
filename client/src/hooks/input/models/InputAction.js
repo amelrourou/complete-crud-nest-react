@@ -1,0 +1,9 @@
+export const INPUT_ACTION_CHANGE = 'CHANGE';
+export const INPUT_ACTION_BLUR = 'BLUR';
+export const INPUT_ACTION_CLEAR = 'CLEAR';
+
+export const InputActionType = {
+  CHANGE: INPUT_ACTION_CHANGE,
+  BLUR: INPUT_ACTION_BLUR,
+  CLEAR: INPUT_ACTION_CLEAR,
+};

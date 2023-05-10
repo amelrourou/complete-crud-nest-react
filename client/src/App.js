@@ -24,13 +24,19 @@ import ListClientProfils from './components/Clientprofils/listClientprofils';
 
 import MyClientProfil from './components/Clientprofils/myClientprofile';
 import ClientProfil from './components/Clientprofils/Clientprofil';
+import RegisterPage from './pages/Register.page';
+import SigninPage from './pages/Signin.page';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/signin" element={<SigninPage />} />
+          <Route path="/" element={<PrivateRoute page={<Home />} />} />
+
           <Route path="/listprofils" element={<ListProfils />} />
           <Route path="/profils" element={<Profils />} />
           <Route path="/profils/:id" element={<Profil />} />

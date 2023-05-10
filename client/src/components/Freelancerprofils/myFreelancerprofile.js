@@ -9,19 +9,17 @@ import {
   Text,
   Button,
   Badge,
-  Icon,
-  Divider,
+
   Flex,
-  Avatar,
+
   Spacer,
 } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
+import { Card,  CardBody, CardFooter } from '@chakra-ui/react';
 
 import {
   AiFillDelete,
   AiFillEdit,
-  AiFillStar,
-  AiOutlinePhone,
+
 } from 'react-icons/ai';
 import { GlobalContext } from '../../context/GlobalWrapper';
 import FreelancerDrawerExample from './FreelancerDrawerExample';

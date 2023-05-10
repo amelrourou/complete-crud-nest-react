@@ -202,7 +202,7 @@ export default function Wrapper({ children }) {
       });
   };
 
-  const FindaFreelancer = async (id) => {
+  const FindFreelancer = async (id) => {
     await axios
       .get(`/api/Freelancerprofils/${id}`)
       .then((res) => {
@@ -213,7 +213,7 @@ export default function Wrapper({ children }) {
       });
   };
 
-  const FindaClient = async (id) => {
+  const FindClient = async (id) => {
     await axios
       .get(`/api/Clientprofils/${id}`)
       .then((res) => {
@@ -257,7 +257,7 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        FetchProfils();
+        FetchFreelancerProfils();
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -277,7 +277,7 @@ export default function Wrapper({ children }) {
         setErrors({});
         setForm({});
         onClose();
-        FetchProfils();
+        FetchClientProfils();
       })
       .catch((err) => {
         setErrors(err.response.data.error);
@@ -289,10 +289,8 @@ export default function Wrapper({ children }) {
       value={{
         FetchProfils,
         Search,
-
         Delete,
         Add,
-
         FindOne,
         Update,
         Profils,
@@ -309,12 +307,12 @@ export default function Wrapper({ children }) {
         FetchFreelancerProfils,
         FreelancerProfil,
         FreelancerProfils,
-        FindaFreelancer,
+        FindFreelancer,
         DeleteFreelancer,
         FetchClientProfils,
         ClientProfil,
         ClientProfils,
-        FindaClient,
+        FindClient,
         DeleteClient,
         UpdateClient,
         AddClientProfil,

@@ -9,21 +9,19 @@ import {
   Text,
   Button,
   Badge,
-  Icon,
-  Divider,
+
   Flex,
-  Avatar,
+
   Spacer,
 } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter } from '@chakra-ui/react';
 
 import {
   AiFillDelete,
   AiFillEdit,
-  AiFillStar,
-  AiOutlinePhone,
+
 } from 'react-icons/ai';
-import { FaRegEnvelope } from 'react-icons/fa';
+
 import { GlobalContext } from '../../context/GlobalWrapper';
 import DrawerExample from './DrawerExample';
 
@@ -31,7 +29,7 @@ const MyProfil = () => {
   const [profil, setProfil] = useState({});
   const { id } = useParams();
 
-  const { onOpen, Delete, Update, FindOne } = useContext(GlobalContext);
+  const { onOpen, Delete, FindOne } = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchProfil = async () => {
